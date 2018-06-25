@@ -20,7 +20,7 @@ module Reflex.Gloss
 
 import           Control.Monad.Fix      (MonadFix)
 import           Control.Monad.Identity
-import           Control.Monad.IO.Class (liftIO)
+import           Control.Monad.IO.Class (MonadIO, liftIO)
 import           Data.Dependent.Sum (DSum ((:=>)))
 import           Data.IORef             (readIORef)
 
@@ -36,7 +36,7 @@ import           Reflex.Host.Class (newEventWithTriggerRef, runHostFrame, fireEv
 type InputEvent = G.Event
 
 -- | Convert the refresh and input events to a Behavior t Picture.
-type GlossApp t m = (Reflex t, MonadHold t m, MonadFix m)
+type GlossApp t m = (Reflex t, MonadHold t m, MonadFix m, MonadIO m)
                   => Event t Float
                   -> Event t InputEvent
                   -> m (Behavior t Picture)
